@@ -1,14 +1,14 @@
 const request=require('request')
-const forecast= (longitude,latitude,callback)=>{
+const forecast= (latitude,longitude,callback)=>{
     const url="http://api.weatherstack.com/current?access_key=dd63605b76217bf67667058aee08a6ee&query="+latitude+","+longitude+"&units=f"
-    request({url:url,json:true},function(error, response){
+    request({url,json:true},function(error, {body}={}){
         if(error){
             callback('Could\'nt connect to network',undefined)
-        }else if(response.body.error){
+        }else if(body.error){
             callback('Unable to find location',undefined)
            }
            else{
-            callback(undefined,response.body.current.weather_descriptions[0]+'. It is currently '+response.body.current.temperature+" degree out.There is "+response.body.current.precip+"% chance of rain")
+            callback(undefined,body.current.weather_descriptions[0]+'. It is currently '+body.current.temperature+" degree out.There is "+body.current.precip+"% chance of rain")
            }
     })
 }

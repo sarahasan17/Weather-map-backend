@@ -16,19 +16,18 @@ const city=process.argv[2]
 if(!city){
   console.log("Please provide the city name")
 }else{
-    geocode(city,(error, data)=>{
+    geocode(city,(error, {Latitude,Longitude,Location}={})=>{
         if(error){
             return console.log(error)
         }
-        forecast(data.Longitude, data.Latitude, (error, forcastdata) => {
+        forecast(Latitude, Longitude, (error, forcastdata) => {
             if(error){
                 return console.log(error)
             }
-            console.log(data.Location)
+            console.log(Location)
             console.log(forcastdata)
         })
-      })
-      
+      })     
 }
 
   
